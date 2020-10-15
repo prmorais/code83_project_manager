@@ -23,7 +23,9 @@
 	"rules": {
 		"no-unused-vars": ["error", {
 			"argsIgnorePattern": "_"
-		}],
+    }],
+    "linebreak-style":"off",
+    "no-console":"off",
 		"camelcase": "off",
 		"class-methods-use-this": "off",
 		"import/extensions": [
@@ -33,5 +35,10 @@
 				"ts": "never"
 			}
 		]
-	}
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript":{}
+    }
+  }
 }
