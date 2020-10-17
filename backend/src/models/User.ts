@@ -20,6 +20,9 @@ class User {
   @Column()
   password: string;
 
+  @Column({ default: true })
+  active: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 

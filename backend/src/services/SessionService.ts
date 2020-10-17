@@ -7,7 +7,6 @@ import IUserRepository from '../repositories/IUserRepository';
 import UserRepository from '../repositories/UserRepository';
 
 interface request {
-  name: string;
   email: string;
   password: string;
 }
@@ -27,8 +26,6 @@ class SessionService {
   public async execute({ email, password }: request): Promise<response> {
     const user = await this.userRepository.findByEmail(email);
 
-    console.log(`No Session Service ${user}`);
-
     if (!user) {
       throw new AppError('Usuário e/ou Senha inválido', 401);
     }
@@ -37,6 +34,10 @@ class SessionService {
 
     if (!passwordCompare) {
       throw new AppError('Usuário e/ou Senha inválido', 401);
+    }
+
+    if (!user.active) {
+      throw new AppError('Usuário inativo', 401);
     }
 
     const token = sign({}, process.env.APP_SECRET as string, {
