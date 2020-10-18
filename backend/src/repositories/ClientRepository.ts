@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Like, Repository } from 'typeorm';
 
 import IClientRepository from './IClientRepository';
 import Client from '../models/Client';
@@ -9,6 +9,19 @@ class ClientRepository implements IClientRepository {
 
   constructor() {
     this.ormRepository = getRepository(Client);
+  }
+
+  public async findByName(name: string): Promise<Client[]> {
+    return this.ormRepository.find({
+      name: Like(`%${name}%`),
+    });
+  }
+
+  public async findAllPaginate(page: number): Promise<[Client[], number]> {
+    return this.ormRepository.findAndCount({
+      skip: page,
+      take: 10,
+    });
   }
 
   public async findAll(): Promise<Client[]> {
@@ -39,8 +52,12 @@ class ClientRepository implements IClientRepository {
     return client;
   }
 
-  public async updateUser(client: Client): Promise<Client> {
+  public async updateClient(client: Client): Promise<Client> {
     return this.ormRepository.save(client);
+  }
+
+  public async deleteClient(id: string): Promise<void> {
+    this.ormRepository.delete(id);
   }
 }
 

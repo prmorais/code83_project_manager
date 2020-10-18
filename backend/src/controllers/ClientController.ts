@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 // import Client from '../models/Client';
 import ClientRepository from '../repositories/ClientRepository';
 import CreateClientService from '../services/CreateClientService';
+import DeleteClientService from '../services/DeleteClientService';
+import PaginateClientService from '../services/PaginatedClientService';
 import UpdateClientService from '../services/UpdateClientService';
 
 class ClienteController {
@@ -9,6 +11,28 @@ class ClienteController {
     const clientRepository = new ClientRepository();
 
     const clients = await clientRepository.findAll();
+
+    return res.json(clients);
+  }
+
+  public async search(req: Request, res: Response): Promise<Response> {
+    const { name } = req.query;
+
+    const clientRepository = new ClientRepository();
+
+    const clients = await clientRepository.findByName(name?.toString() || '');
+
+    return res.json(clients);
+  }
+
+  public async paginated(req: Request, res: Response): Promise<Response> {
+    const { page } = req.query;
+    const clientRepository = new ClientRepository();
+    const clientsPaginated = new PaginateClientService(clientRepository);
+
+    const clients = await clientsPaginated.execute({
+      page: page !== undefined ? parseInt(page.toString(), 10) : 0,
+    });
 
     return res.json(clients);
   }
@@ -36,6 +60,17 @@ class ClienteController {
     });
 
     return res.json(client);
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const clientRepository = new ClientRepository();
+    const deletedClient = new DeleteClientService(clientRepository);
+
+    await deletedClient.execute(id);
+
+    return res.json({ message: `Cliente com ID: ${id} foi exlcuído` });
   }
 }
 
