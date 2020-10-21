@@ -16,7 +16,7 @@ const SignInDev: React.FC = () => {
           <Input icon={FaLock} placeholder="Senha" isPassword type="password" />
           <Button>Entrar</Button>
           <FormActions>
-            <Link to="/sign-up">Faça seu cadastro</Link>
+            <Link to="/sign-up/dev">Faça seu cadastro</Link>
             <Link to="/">Voltar</Link>
           </FormActions>
         </Form>

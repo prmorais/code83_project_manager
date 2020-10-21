@@ -48,6 +48,7 @@
         "tsx": "never"
       }
     ],
+    "no-console": "off",
     "no-use-before-define": "off",
     "prettier/prettier": "error",
     "react/prop-types": "off",

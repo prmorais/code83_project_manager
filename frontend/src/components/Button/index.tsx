@@ -2,10 +2,10 @@ import React, { ButtonHTMLAttributes } from 'react';
 
 import { Container } from './styles';
 
-// type IBottonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type IButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC = ({ children }) => {
-  return <Container>{children}</Container>;
+const Button: React.FC<IButtonProps> = ({ children, ...rest }) => {
+  return <Container {...rest}>{children}</Container>;
 };
 
 export default Button;

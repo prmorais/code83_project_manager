@@ -3,15 +3,8 @@ import { FaCode } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import {
-  Container,
-  Background,
-  Content,
-  Form,
-  FormActions,
-} from '../SignInDev/styles';
 
-// import { Background, Container, Content, Form, FormActions } from './styles';
+import { Background, Container, Content, Form, FormActions } from './styles';
 
 const SignInClient: React.FC = () => {
   return (
